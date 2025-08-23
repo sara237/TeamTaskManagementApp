@@ -1,0 +1,11 @@
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Domain\bin\Debug\net9.0\TeamTaskManagement.Domain.deps.json
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Domain\bin\Debug\net9.0\TeamTaskManagement.Domain.dll
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Domain\bin\Debug\net9.0\TeamTaskManagement.Domain.pdb
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Domain\obj\Debug\net9.0\TeamTaskManagement.Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Domain\obj\Debug\net9.0\TeamTaskManagement.Domain.AssemblyInfoInputs.cache
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Domain\obj\Debug\net9.0\TeamTaskManagement.Domain.AssemblyInfo.cs
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Domain\obj\Debug\net9.0\TeamTaskManagement.Domain.csproj.CoreCompileInputs.cache
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Domain\obj\Debug\net9.0\TeamTaskManagement.Domain.dll
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Domain\obj\Debug\net9.0\refint\TeamTaskManagement.Domain.dll
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Domain\obj\Debug\net9.0\TeamTaskManagement.Domain.pdb
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Domain\obj\Debug\net9.0\ref\TeamTaskManagement.Domain.dll

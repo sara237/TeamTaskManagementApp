@@ -1,0 +1,15 @@
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\bin\Debug\net9.0\TeamTaskManagement.Application.deps.json
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\bin\Debug\net9.0\TeamTaskManagement.Application.dll
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\bin\Debug\net9.0\TeamTaskManagement.Application.pdb
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\bin\Debug\net9.0\TeamTaskManagement.Domain.dll
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\bin\Debug\net9.0\TeamTaskManagement.Domain.pdb
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\obj\Debug\net9.0\TeamTaskManagement.Application.csproj.AssemblyReference.cache
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\obj\Debug\net9.0\TeamTaskManagement.Application.GeneratedMSBuildEditorConfig.editorconfig
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\obj\Debug\net9.0\TeamTaskManagement.Application.AssemblyInfoInputs.cache
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\obj\Debug\net9.0\TeamTaskManagement.Application.AssemblyInfo.cs
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\obj\Debug\net9.0\TeamTaskManagement.Application.csproj.CoreCompileInputs.cache
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\obj\Debug\net9.0\TeamTask.631A92F8.Up2Date
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\obj\Debug\net9.0\TeamTaskManagement.Application.dll
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\obj\Debug\net9.0\refint\TeamTaskManagement.Application.dll
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\obj\Debug\net9.0\TeamTaskManagement.Application.pdb
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\TeamTaskManagement.Application\obj\Debug\net9.0\ref\TeamTaskManagement.Application.dll

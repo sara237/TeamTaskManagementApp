@@ -1,0 +1,13 @@
+<h2>Team Chat <span *ngIf="connected">🟢</span><span *ngIf="!connected">🔴</span></h2>
+
+<div class="chat-box">
+  <div class="msg" *ngFor="let m of messages">
+    <b>{{ m.senderName || m.senderId }}</b>: {{ m.content }}
+    <small class="time">{{ m.timestamp | date:'short' }}</small>
+  </div>
+</div>
+
+<div class="composer">
+  <input [(ngModel)]="input" placeholder="Type a message..." (keyup.enter)="send()" />
+  <button (click)="send()">Send</button>
+</div>

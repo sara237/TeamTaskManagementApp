@@ -1,0 +1,47 @@
+<h2>{{ id ? 'Edit Task' : 'New Task' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()" class="form">
+  <label>Title
+    <input formControlName="title" />
+  <small *ngIf="form.get('title')?.touched && form.get('title')?.invalid">
+  Title is required
+  </small>
+  </label>
+
+  <label>Description
+    <textarea formControlName="description"></textarea>
+  </label>
+
+  <label>Status
+    <select formControlName="status">
+      <option [ngValue]="1">Todo</option>
+      <option [ngValue]="2">In Progress</option>
+      <option [ngValue]="3">Completed</option>
+    </select>
+  </label>
+
+  <label>Priority
+    <select formControlName="priority">
+      <option [ngValue]="1">Low</option>
+      <option [ngValue]="2">Medium</option>
+      <option [ngValue]="3">High</option>
+    </select>
+  </label>
+
+  <label>Assignee
+    <select formControlName="assignedUserId">
+      <option value="" disabled>Select a user</option>
+      <option *ngFor="let u of users" [value]="u.id">{{ u.name }}</option>
+    </select>
+    <small *ngIf="form.get('assignedUserId')?.touched && form.get('assignedUserId')?.invalid">
+      Assignee is required
+    </small>
+  </label>
+
+  <label>Due Date
+    <input type="datetime-local" formControlName="dueDate" />
+  </label>
+
+  <button type="submit">Save</button>
+  <a routerLink="/tasks">Cancel</a>
+</form>

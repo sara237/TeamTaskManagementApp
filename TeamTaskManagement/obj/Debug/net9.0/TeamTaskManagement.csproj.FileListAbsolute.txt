@@ -1,0 +1,8 @@
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\obj\Debug\net9.0\TeamTaskManagement.csproj.AssemblyReference.cache
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\obj\Debug\net9.0\rpswa.dswa.cache.json
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\obj\Debug\net9.0\TeamTaskManagement.GeneratedMSBuildEditorConfig.editorconfig
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\obj\Debug\net9.0\TeamTaskManagement.AssemblyInfoInputs.cache
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\obj\Debug\net9.0\TeamTaskManagement.AssemblyInfo.cs
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\obj\Debug\net9.0\TeamTaskManagement.csproj.CoreCompileInputs.cache
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\obj\Debug\net9.0\TeamTaskManagement.MvcApplicationPartsAssemblyInfo.cs
+E:\TaskManagementProject\TeamTaskManagementApp\TeamTaskManagement\obj\Debug\net9.0\TeamTaskManagement.MvcApplicationPartsAssemblyInfo.cache

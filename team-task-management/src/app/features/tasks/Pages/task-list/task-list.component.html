@@ -1,0 +1,48 @@
+<h2>Tasks</h2>
+
+<div class="filters">
+  <input type="text" [(ngModel)]="search" placeholder="Search title/description" class="form-control" />
+  <select [(ngModel)]="status">
+    <option [ngValue]="undefined">All Statuses</option>
+    <option [ngValue]="1">Todo</option>
+    <option [ngValue]="2">In Progress</option>
+    <option [ngValue]="3">Completed</option>
+  </select>
+
+  <select [(ngModel)]="assigneeId">
+    <option value="">All Assignees</option>
+    <option *ngFor="let u of users" [value]="u.id">{{ u.name }}</option>
+  </select>
+
+  <button (click)="load()">Load</button>
+  <button (click)="clearFilters()">Clear</button>
+  <a routerLink="/tasks/new">+ New Task</a>
+</div>
+
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+
+<table *ngIf="!loading && tasks.length" class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Priority</th>
+      <th>Assignee</th>
+      <th>Due</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let t of tasks">
+      <td><a [routerLink]="['/tasks', t.id]">{{ t.title }}</a></td>
+      <td>{{ TaskStatus[t.status] }}</td>
+      <td>{{ Priority[t.priority] }}</td>
+      <td>{{ getAssignedUserName(t.assignedUserId) | async }}</td>
+      <td>{{ t.dueDate | date:'mediumDate' }}</td>
+      <td><button (click)="delete(t)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="!loading && !tasks.length">No tasks yet.</p>
