@@ -8,10 +8,6 @@ using TeamTaskManagement.Infrastructure.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add DbContext
-//builder.Services.AddDbContext<TeamTaskManagementDbContext>(options =>
-//    options.UseInMemoryDatabase("TeamTaskManagementDB"));
-//builder.Services.AddDbContext<TeamTaskManagementDbContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<TeamTaskManagementDbContext>(options =>

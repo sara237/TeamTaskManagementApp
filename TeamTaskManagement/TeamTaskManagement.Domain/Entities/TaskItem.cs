@@ -11,7 +11,7 @@ namespace TeamTaskManagement.Domain.Entities
         public TaskStatus Status { get; set; } = TaskStatus.Todo;
         public DateTime? DueDate { get; set; }
         public Priority Priority { get; set; } = Priority.Medium;
-        public string AssignedUserId { get; set; }
+        public required string AssignedUserId { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
     }

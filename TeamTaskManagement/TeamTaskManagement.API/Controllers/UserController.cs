@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TeamTaskManagement.Application.Interfaces;
-using TeamTaskManagement.Application.Services;
 
 namespace TeamTaskManagement.API.Controllers
 {
