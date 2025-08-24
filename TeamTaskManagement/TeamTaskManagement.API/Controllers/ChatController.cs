@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TeamTaskManagement.Application.Interfaces;
+using TeamTaskManagement.Infrastructure.Repositories;
 
 namespace TeamTaskManagement.API.Controllers
 {
@@ -8,20 +9,29 @@ namespace TeamTaskManagement.API.Controllers
     public class ChatController : ControllerBase
     {
         private readonly IChatRepository _chatRepository;
+        private readonly IUserRepository _userRepository;
         private readonly ILogger<ChatController> _logger;
 
-        public ChatController(IChatRepository chatRepository, ILogger<ChatController> logger)
+        public ChatController(IChatRepository chatRepository, IUserRepository userRepository, ILogger<ChatController> logger)
         {
             _chatRepository = chatRepository;
+            _userRepository = userRepository;
             _logger = logger;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMessages(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetMessages(string userId , CancellationToken cancellationToken)
         {
             try
             {
+                var user = await _userRepository.GetUserByIdAsync(userId);
                 var messages = await _chatRepository.GetAllMessagesAsync(cancellationToken);
+
+                // Admin sees all messages
+                if (user.Role != "Admin")
+                {
+                    messages = messages.Where(m => m.SenderId == user.Id).ToList();
+                }
                 return Ok(messages);
             }
             catch (Exception ex)

@@ -11,7 +11,7 @@
     <option [ngValue]="3">Completed</option>
   </select>
 </div>
- <div class="col-md-4">
+ <div class="col-md-4" *ngIf="currentUser?.role === 'Admin'">
   <select [(ngModel)]="assigneeId" class="form-select">
     <option value="">All Assignees</option>
     <option *ngFor="let u of users" [value]="u.id">{{ u.name }}</option>

@@ -1,6 +1,8 @@
-﻿using TeamTaskManagement.Application.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using System.Data;
+using System.Xml.Linq;
+using TeamTaskManagement.Application.Interfaces;
 using TeamTaskManagement.Domain.Entities;
-using Microsoft.Extensions.Logging;
 
 namespace TeamTaskManagement.Application.Services
 {
@@ -15,9 +17,10 @@ namespace TeamTaskManagement.Application.Services
             // Initialize with sample users
             _users = new List<User>
             {
-                new User { Id ="1", Name = "Alice" },
-                new User { Id ="2",Name = "Bob" },
-                new User { Id ="3",Name = "Charlie" }
+                new User { Id = "1", Name = "Alice", Role = "Member" },
+                new User { Id = "2", Name = "Bob", Role = "Member" },
+                new User { Id = "3", Name = "Charlie", Role = "Member" },
+                new User { Id = "100", Name = "AdminUser", Role = "Admin" } // The admin
             };
         }
 

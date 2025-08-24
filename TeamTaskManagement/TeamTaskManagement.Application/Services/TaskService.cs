@@ -31,7 +31,12 @@ namespace TeamTaskManagement.Application.Services
             var tasks = await _taskRepository.GetAllAsync(cancellationToken);
             return tasks.Where(t => t.AssignedUserId == userId);
         }
-
+        public async Task<TaskItem?> GetTasksByIdAsync(Guid taskId, CancellationToken cancellationToken = default)
+        {
+            _logger.LogInformation("Fetching tasks for task {taskId}", taskId);
+            cancellationToken.ThrowIfCancellationRequested();
+            return await _taskRepository.GetByIdAsync(taskId, cancellationToken);       
+        }
         public async Task<TaskItem> CreateTaskAsync(TaskItem task, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();

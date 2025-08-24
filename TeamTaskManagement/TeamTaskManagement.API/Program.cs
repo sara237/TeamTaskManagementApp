@@ -62,5 +62,8 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 // Map SignalR Hub (to create later)
-app.MapHub<ChatHub>("/chatHub");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<ChatHub>("/chathub");
+});
 app.Run();

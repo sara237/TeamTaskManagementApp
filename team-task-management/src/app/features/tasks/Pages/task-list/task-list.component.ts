@@ -7,8 +7,10 @@ import { TaskService } from '../../../../core/services/task.service';
 import { UserService } from '../../../../core/services/user.service';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { title } from 'process';
 import { TaskFilterDto } from '../../../../core/dtos/task-filter-dto';
+import { CurrentUserService } from '../../../../core/services/current-user.service';
+import { Router } from '@angular/router';
+import { ChatService } from '../../../../core/services/chat.service';
 
 @Component({
   selector: 'app-task-list',
@@ -29,14 +31,31 @@ export class TaskListComponent implements OnInit {
 
   loading = false;
   error?: string;
+
+  currentUser?: User;
+  
   private userCache: { [id: string]: string } = {};
-  constructor(private taskSvc: TaskService, private userSvc: UserService) {}
+
+
+  constructor(private taskSvc: TaskService, private userSvc: UserService, 
+              private currentUserService: CurrentUserService, private router: Router,
+              private chatService: ChatService) 
+  { }
 
   ngOnInit(): void {
+
+   this.currentUser = this.currentUserService.currentUser;
+
+   if (!this.currentUser) {
+     this.router.navigate(['/login']);
+    } else {
     this.userSvc.getAll().subscribe(u => this.users = u);
     this.load();
+    }
   }
-getAssignedUserName(userId: string): Observable<string> {
+
+
+  getAssignedUserName(userId: string): Observable<string> {
   if (this.userCache[userId]) {
     return of(this.userCache[userId]);
   }
@@ -58,11 +77,16 @@ protected load() {
   const filter: TaskFilterDto = {
     title: this.search,
     status: this.status,
-    assignedUserId: this.assigneeId,
+    assignedUserId: this.currentUser?.role === 'Admin' ? this.assigneeId : this.currentUser?.id
   };
 
   this.taskSvc.filterTasks(filter).subscribe({
-    next: t => { this.tasks = t; this.loading = false; },
+    next: t => { 
+        this.tasks = this.currentUser?.role === 'Admin'
+          ? t
+          : t.filter(task => task.assignedUserId === this.currentUser?.id);
+        this.loading = false;
+     },
     error: err => { this.error = 'Failed to load tasks'; this.loading = false; console.error(err); }
   });
 }

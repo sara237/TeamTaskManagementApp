@@ -8,7 +8,6 @@ namespace TeamTaskManagement.Application.Services
     {
         private readonly IChatRepository _chatRepository;
         private readonly ILogger<ChatService> _logger;
-
         public ChatService(IChatRepository chatRepository, ILogger<ChatService> logger)
         {
             _chatRepository = chatRepository;

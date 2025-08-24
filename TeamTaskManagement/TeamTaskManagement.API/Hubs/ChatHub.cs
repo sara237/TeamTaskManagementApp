@@ -17,20 +17,23 @@ namespace TeamTaskManagement.API.Hubs
         public async Task SendMessage(string userId, string message)
         {
             var user = await _userRepository.GetUserByIdAsync(userId);
-            var name = user?.Name ?? "Unknown";
+
             var chatMessage = new ChatMessage
             {
                 Id = Guid.NewGuid(),
-                SenderName = name,
+                SenderId = user.Id,
+                SenderName = user.Name,
+                SenderRole = user?.Role ?? "Member",
                 Content = message,
                 Timestamp = DateTime.UtcNow
             };
+
 
             // Save message to database
             await _chatRepository.AddMessageAsync(chatMessage);
 
             // Broadcast to all connected clients
-            await Clients.All.SendAsync("ReceiveMessage", chatMessage.SenderName, chatMessage.Content, chatMessage.Timestamp);
+            await Clients.All.SendAsync("ReceiveMessage", chatMessage);
         }
     }
 }
