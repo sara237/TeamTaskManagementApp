@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TeamTaskManagement.Application.DTOs;
 using TeamTaskManagement.Application.Interfaces;
 using TeamTaskManagement.Domain.Entities;
 
@@ -16,13 +17,37 @@ namespace TeamTaskManagement.API.Controllers
             _taskRepository = taskRepository;
             _logger = logger;
         }
+        [HttpPost("filter")]
+        public async Task<IActionResult> GetFilterTasks([FromBody] TaskFilterDto filter, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var tasks = await _taskRepository.GetAllAsync(cancellationToken);
 
+                if (!string.IsNullOrEmpty(filter.Title))
+                    tasks = tasks.Where(t => t.Title.Contains(filter.Title, StringComparison.OrdinalIgnoreCase));
+
+                if (filter.Status.HasValue)
+                    tasks = tasks.Where(t => (TaskStatus)t.Status == filter.Status.Value);
+
+                if (!string.IsNullOrEmpty(filter.AssignedUserId))
+                    tasks = tasks.Where(t => t.AssignedUserId == filter.AssignedUserId);
+
+                return Ok(tasks);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching tasks");
+                return StatusCode(500, "Internal server error");
+            }
+        }
         [HttpGet]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             try
             {
                 var tasks = await _taskRepository.GetAllAsync(cancellationToken);
+
                 return Ok(tasks);
             }
             catch (Exception ex)
