@@ -24,8 +24,7 @@ export class ChatPanelComponent implements OnInit {
     this.chat.start();
   }
 
-  send() {
-    debugger;
+  protected send() {
     const text = this.input.trim();
     if (!text) return;
     this.chat.sendMessage(this.me, text).catch(err => console.error(err));

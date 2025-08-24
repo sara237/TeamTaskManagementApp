@@ -40,7 +40,6 @@ export class ChatService {
   }
 
   sendMessage(sender: string, message: string): Promise<void> {
-    debugger;
     if (!this.hub) throw new Error('Hub not started');
     return this.hub.invoke('SendMessage', sender, message);
   }

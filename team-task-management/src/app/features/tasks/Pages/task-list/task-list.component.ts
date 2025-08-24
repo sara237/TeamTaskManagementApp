@@ -7,6 +7,8 @@ import { TaskService } from '../../../../core/services/task.service';
 import { UserService } from '../../../../core/services/user.service';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { title } from 'process';
+import { TaskFilterDto } from '../../../../core/dtos/task-filter-dto';
 
 @Component({
   selector: 'app-task-list',
@@ -43,7 +45,6 @@ getAssignedUserName(userId: string): Observable<string> {
     map(user => {
       const userName = user?.name ?? 'Unknown User';
       this.userCache[userId] = userName;
-      debugger;
       return userName;
     }),
     catchError(() => {
@@ -52,28 +53,27 @@ getAssignedUserName(userId: string): Observable<string> {
     })
   );
 }
-  load() {
-    debugger;
-    this.loading = true;
-    this.taskSvc.getAll({
-      search: this.search || undefined,
-      status: this.status || undefined,
+protected load() {
+  this.loading = true;
+  const filter: TaskFilterDto = {
+    title: this.search,
+    status: this.status,
+    assignedUserId: this.assigneeId,
+  };
 
-      assignedUserId: this.assigneeId || undefined
-    }).subscribe({
-      next: t => { this.tasks = t; this.loading = false; },
-      error: err => { this.error = 'Failed to load tasks'; this.loading = false; console.error(err); }
-    });
-  }
-
-  clearFilters() {
+  this.taskSvc.filterTasks(filter).subscribe({
+    next: t => { this.tasks = t; this.loading = false; },
+    error: err => { this.error = 'Failed to load tasks'; this.loading = false; console.error(err); }
+  });
+}
+protected clearFilters() {
     this.search = '';
     this.status = undefined;
     this.assigneeId = '';
     this.load();
   }
 
-  delete(task: TaskItem) {
+protected delete(task: TaskItem) {
     if (!confirm(`Delete task "${task.title}"?`)) return;
     this.taskSvc.delete(task.id).subscribe({
       next: () => this.load()

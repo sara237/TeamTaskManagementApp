@@ -7,6 +7,7 @@ import { User } from '../../../../core/models/user.model';
 import { TaskService } from '../../../../core/services/task.service';
 import { UserService } from '../../../../core/services/user.service';
 import { TaskItem } from '../../../../core/models/task-item.model';
+import { firstValueFrom, tap } from 'rxjs';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class TaskEditComponent implements OnInit {
   TaskStatus = TaskStatus;
   Priority = Priority;
   form! : FormGroup;
-  
+  tasks: TaskItem[] = [];
+  error: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -41,42 +43,76 @@ export class TaskEditComponent implements OnInit {
     assignedUserId: ['', [Validators.required]],
     dueDate: ['']
   });
-  debugger;
     this.userSvc.getAll().subscribe(u => this.users = u);
+
     this.id = this.route.snapshot.paramMap.get('id') || undefined;
+
     if (this.id) {
-      this.taskSvc.getById(this.id).subscribe(task => this.form.patchValue({
-         title: task.title,
-    description: task.description,
-    dueDate: this.formatDateTimeForInput(task.dueDate),
-    status: task.status,
-    priority: task.priority,
-    assignedUserId: task.assignedUserId
-      }));
-    }
+      this.taskSvc.getById(this.id).subscribe(task => 
+        this.form.patchValue({
+                              title: task.title,
+                              description: task.description,
+                              dueDate: [
+                                        task?.dueDate ? this.formatDateForInput(task.dueDate) : ''
+                                       ],
+                              status: task.status,
+                              priority: task.priority,
+                              assignedUserId: task.assignedUserId
+                             }));
+     }
   }
-private formatDateTimeForInput(dateStr?: string | Date): string {
-  if (!dateStr) return '';
-  const date = new Date(dateStr);
-  return date.toISOString().slice(0, 16); // YYYY-MM-DDTHH:mm
+private formatDateForInput(date: string | Date): string {
+  const d = new Date(date);
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
- save() {
-    debugger;
+
+private async loadTasks() {
+  try {
+    const tasks = await firstValueFrom(this.taskSvc.getAll());
+    this.tasks = tasks;  // ✅ tasks assigned here
+  } catch (err) {
+    console.error('Failed to load tasks', err);
+  }
+}
+ private async checkDuplicateTask(task: Partial<TaskItem>)
+ {
+    await this.loadTasks();
+    if (this.tasks.some(t =>
+      t.title === task.title &&
+      t.description === task.description &&
+      t.status === task.status &&
+      t.priority === task.priority &&
+      t.assignedUserId === task.assignedUserId
+    )) {
+      this.error = 'A task with the same title, status, priority, description, and assigned user already exists.';
+      return true;
+    }
+    return false;
+ }
+ protected async save() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
-    //const payload = this.form.value as Partial<TaskItem>;
-const payload: Partial<TaskItem> = {
-  ...this.form.value,
-  priority: Number(this.form.value.priority),
-  status: Number(this.form.value.status),
-   dueDate: this.form.value.dueDate ? new Date(this.form.value.dueDate).toISOString() : null
-};
+    const payload: Partial<TaskItem> = {
+                  ...this.form.value,
+                  priority: Number(this.form.value.priority),
+                  status: Number(this.form.value.status),
+                  dueDate: this.form.value.dueDate ? new Date(this.form.value.dueDate) : null
+    };
+
   try {
+   const isDuplicate = await this.checkDuplicateTask(payload);
+    if (isDuplicate) {
+      return; // 🚫 stop if duplicate found
+    }
+
     if (this.id) {
        this.taskSvc.update(this.id, payload).subscribe({
-    next: () => this.router.navigate(['/tasks']),
+    next: () => {   
+       this.router.navigate(['/tasks'])
+    },
     error: err => console.error('Update failed', err)
   });
     } else {

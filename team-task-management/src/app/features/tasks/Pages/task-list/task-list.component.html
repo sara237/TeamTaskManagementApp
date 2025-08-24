@@ -1,37 +1,43 @@
-<h2>Tasks</h2>
 
-<div class="filters">
-  <input type="text" [(ngModel)]="search" placeholder="Search title/description" class="form-control" />
-  <select [(ngModel)]="status">
+<div class="row g-2 mb-3">
+  <div class="col-md-4">
+  <input type="text" [(ngModel)]="search" placeholder="Search title" class="form-control" />
+  </div>
+  <div class="col-md-4">
+  <select [(ngModel)]="status" class="form-select">
     <option [ngValue]="undefined">All Statuses</option>
     <option [ngValue]="1">Todo</option>
     <option [ngValue]="2">In Progress</option>
     <option [ngValue]="3">Completed</option>
   </select>
-
-  <select [(ngModel)]="assigneeId">
+</div>
+ <div class="col-md-4">
+  <select [(ngModel)]="assigneeId" class="form-select">
     <option value="">All Assignees</option>
     <option *ngFor="let u of users" [value]="u.id">{{ u.name }}</option>
   </select>
-
-  <button (click)="load()">Load</button>
-  <button (click)="clearFilters()">Clear</button>
-  <a routerLink="/tasks/new">+ New Task</a>
 </div>
 
+</div>
+<div  class="d-flex justify-content-center gap-2">
+  <button (click)="load()" class="btn btn-sm btn-primary">Load</button>
+  <button (click)="clearFilters()" class="btn btn-outline-secondary">Clear</button>
+  
+</div>
 <div *ngIf="loading">Loading...</div>
 <div *ngIf="error">{{ error }}</div>
-
-<table *ngIf="!loading && tasks.length" class="table">
-  <thead>
-    <tr>
+<div class="mt-4">
+  <div class="table-responsive">
+   <table *ngIf="!loading && tasks.length" class="table table-striped table-hover table-bordered align-middle">
+    <thead class="table-dark">
+     <tr>
       <th>Title</th>
       <th>Status</th>
       <th>Priority</th>
       <th>Assignee</th>
       <th>Due</th>
       <th></th>
-    </tr>
+     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let t of tasks">
@@ -40,9 +46,16 @@
       <td>{{ Priority[t.priority] }}</td>
       <td>{{ getAssignedUserName(t.assignedUserId) | async }}</td>
       <td>{{ t.dueDate | date:'mediumDate' }}</td>
-      <td><button (click)="delete(t)">Delete</button></td>
+      <td class="align-middle">
+        <div class="d-flex justify-content-center gap-3">
+          <a routerLink="/tasks/new" class="btn btn-success">Add New Task</a>
+          <button (click)="delete(t)" class="btn btn-sm btn-danger">Delete</button>
+        </div>
+      </td>
     </tr>
-  </tbody>
-</table>
+   </tbody>
+  </table>
+ </div>
+</div>
 
 <p *ngIf="!loading && !tasks.length">No tasks yet.</p>

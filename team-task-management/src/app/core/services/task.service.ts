@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { TaskItem } from '../models/task-item.model';
+import { TaskFilterDto } from '../dtos/task-filter-dto';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
@@ -10,12 +11,11 @@ export class TaskService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(params?: { search?: string; status?: number; assignedUserId?: string }): Observable<TaskItem[]> {
-    let httpParams = new HttpParams();
-    if (params?.search) httpParams = httpParams.set('search', params.search);
-    if (params?.status) httpParams = httpParams.set('status', params.status);
-    if (params?.assignedUserId) httpParams = httpParams.set('assignedUserId', params.assignedUserId);
-    return this.http.get<TaskItem[]>(this.baseUrl, { params: httpParams });
+  filterTasks(filter: TaskFilterDto): Observable<TaskItem[]> {
+  return this.http.post<TaskItem[]>(`${this.baseUrl}/filter`, filter);
+  }
+  getAll(): Observable<TaskItem[]> {
+    return this.http.get<TaskItem[]>(this.baseUrl);
   }
 
   getById(id: string): Observable<TaskItem> {
