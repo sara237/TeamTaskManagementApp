@@ -7,18 +7,21 @@ namespace TeamTaskManagement.API.Hubs
     public class ChatHub : Hub
     {
         private readonly IChatRepository _chatRepository;
-
-        public ChatHub(IChatRepository chatRepository)
+        private readonly IUserRepository _userRepository;
+        public ChatHub(IChatRepository chatRepository, IUserRepository userRepository)
         {
             _chatRepository = chatRepository;
+            _userRepository = userRepository;
         }
 
-        public async Task SendMessage(string user, string message)
+        public async Task SendMessage(string userId, string message)
         {
+            var user = await _userRepository.GetUserByIdAsync(userId);
+            var name = user?.Name ?? "Unknown";
             var chatMessage = new ChatMessage
             {
                 Id = Guid.NewGuid(),
-                SenderName = user,
+                SenderName = name,
                 Content = message,
                 Timestamp = DateTime.UtcNow
             };

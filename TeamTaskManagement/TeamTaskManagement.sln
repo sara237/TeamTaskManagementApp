@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamTaskManagement.Infrastr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamTaskManagement.API", "TeamTaskManagement.API\TeamTaskManagement.API.csproj", "{95B390EF-E1DB-4E3B-AC33-193E06B59A42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamTaskManagement.UnitTests", "TeamTaskManagement.UnitTests\TeamTaskManagement.UnitTests.csproj", "{B172F339-7695-45AC-B66D-C10CADC9897A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{95B390EF-E1DB-4E3B-AC33-193E06B59A42}.Release|x64.Build.0 = Release|Any CPU
 		{95B390EF-E1DB-4E3B-AC33-193E06B59A42}.Release|x86.ActiveCfg = Release|Any CPU
 		{95B390EF-E1DB-4E3B-AC33-193E06B59A42}.Release|x86.Build.0 = Release|Any CPU
+		{B172F339-7695-45AC-B66D-C10CADC9897A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B172F339-7695-45AC-B66D-C10CADC9897A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B172F339-7695-45AC-B66D-C10CADC9897A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B172F339-7695-45AC-B66D-C10CADC9897A}.Debug|x64.Build.0 = Debug|Any CPU
+		{B172F339-7695-45AC-B66D-C10CADC9897A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B172F339-7695-45AC-B66D-C10CADC9897A}.Debug|x86.Build.0 = Debug|Any CPU
+		{B172F339-7695-45AC-B66D-C10CADC9897A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B172F339-7695-45AC-B66D-C10CADC9897A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B172F339-7695-45AC-B66D-C10CADC9897A}.Release|x64.ActiveCfg = Release|Any CPU
+		{B172F339-7695-45AC-B66D-C10CADC9897A}.Release|x64.Build.0 = Release|Any CPU
+		{B172F339-7695-45AC-B66D-C10CADC9897A}.Release|x86.ActiveCfg = Release|Any CPU
+		{B172F339-7695-45AC-B66D-C10CADC9897A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
