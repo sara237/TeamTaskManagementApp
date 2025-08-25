@@ -6,11 +6,12 @@ import { User } from '../../../../core/models/user.model';
 import { TaskService } from '../../../../core/services/task.service';
 import { UserService } from '../../../../core/services/user.service';
 import { map, catchError } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { TaskFilterDto } from '../../../../core/dtos/task-filter-dto';
 import { CurrentUserService } from '../../../../core/services/current-user.service';
 import { Router } from '@angular/router';
 import { ChatService } from '../../../../core/services/chat.service';
+import { ChatMessage } from '../../../../core/models/chat-message.model';
 
 @Component({
   selector: 'app-task-list',
@@ -35,7 +36,8 @@ export class TaskListComponent implements OnInit {
   currentUser?: User;
   
   private userCache: { [id: string]: string } = {};
-
+  messages: ChatMessage[] = [];
+  private subs: Subscription[] = [];
 
   constructor(private taskSvc: TaskService, private userSvc: UserService, 
               private currentUserService: CurrentUserService, private router: Router,
@@ -43,15 +45,22 @@ export class TaskListComponent implements OnInit {
   { }
 
   ngOnInit(): void {
+  this.currentUser = this.currentUserService.currentUser;
 
-   this.currentUser = this.currentUserService.currentUser;
+  if (!this.currentUser) {
+    this.router.navigate(['/login']);
+    return;
+  }
 
-   if (!this.currentUser) {
-     this.router.navigate(['/login']);
-    } else {
-    this.userSvc.getAll().subscribe(u => this.users = u);
-    this.load();
-    }
+  this.chatService.start();
+
+  const sub = this.chatService.messages$.subscribe(msgs => {
+    this.messages = msgs;
+  });
+  this.subs.push(sub);
+  this.chatService.fetchMessages(this.currentUser.id).subscribe();
+  this.userSvc.getAll().subscribe(u => this.users = u);
+  this.load();
   }
 
 

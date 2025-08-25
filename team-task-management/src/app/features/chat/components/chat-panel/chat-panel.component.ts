@@ -21,43 +21,25 @@ export class ChatPanelComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.chatService.start();
     const user = this.chatService.currentUser
-    this.chatService.fetchMessages(user.id).subscribe(messages => {
+     this.messages = this.chatService.getMessages();
 
-    // Admin sees all messages, members see only their own
-    this.messages = messages.filter(msg => 
-      user.role === 'Admin' || msg.senderId === user.id
-    );
-
+  // Subscribe to updates
+  const sub = this.chatService.messages$.subscribe(msgs => {
+    this.messages = msgs;
     setTimeout(() => {
       const container = document.getElementById('chat-container');
       container?.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
     }, 0);
   });
-
-  // Subscribe to real-time messages
-  const sub = this.chatService.messages$.subscribe(msg => {
-    const user = this.chatService.currentUser;
-    if (user.role === 'Admin' || msg.senderId === user.id) {
-      this.messages.push(msg);
-      setTimeout(() => {
-        const container = document.getElementById('chat-container');
-        container?.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
-      }, 0);
-    }
-  });
   this.subs.push(sub);
-}
-  //   const sub = this.chatService.messages$.subscribe(msg => {
-  //     this.messages.push(msg);
-  //     setTimeout(() => {
-  //       const container = document.getElementById('chat-container');
-  //       container?.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
-  //     }, 0);
-  //   });
-  //   this.subs.push(sub);
-  // }
 
-  send(): void {
+  // Fetch from API only if empty
+  if (this.messages.length === 0) {
+    this.chatService.fetchMessages(user.id).subscribe();
+  }
+}
+
+  protected send(): void {
     if (!this.newMessage.trim()) return;
 
     this.chatService.sendMessage(this.newMessage)
